@@ -35,7 +35,7 @@
           compiledby ? "vim-overlay",
           cscope ? false,
           lua ? false,
-          # perl ? false, # fail to build...
+          perl ? false, # fail to build...
           python3 ? false,
           ruby ? false,
           sodium ? false,
@@ -61,7 +61,7 @@
                 # Disable python2
                 "--disable-pythoninterp"
               ]
-              # ++ prev.lib.optional perl "--enable-perlinterp"
+              ++ prev.lib.optional perl "--enable-perlinterp"
               ++ prev.lib.optionals ruby [
                 "--with-ruby-command=${prev.ruby}/bin/ruby"
                 "--enable-rubyinterp"
@@ -79,13 +79,20 @@
               ++ prev.lib.optional lua prev.lua
               ++ prev.lib.optional python3 prev.python3
               ++ prev.lib.optional ruby prev.ruby
-              # ++ prev.lib.optional perl prev.perl
+              ++ prev.lib.optional perl prev.perl
               ++ prev.lib.optional sodium prev.libsodium;
           });
         };
 
       vim-overlays = {
-        default = make-overlay { };
+        default = make-overlay {
+          cscope = true;
+          lua = true;
+          perl = true;
+          python3 = true;
+          ruby = true;
+          sodium = true;
+        };
         features = make-overlay;
       };
     in
